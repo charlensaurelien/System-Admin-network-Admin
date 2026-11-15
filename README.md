@@ -4,7 +4,6 @@ A hands-on networking and systems administration project documenting a segmented
 
 The project demonstrates VLAN segmentation, inter-VLAN routing, centralized DHCP and DNS, DHCP relay, DHCP snooping, Dynamic ARP Inspection (DAI), port security, and a planned guest-network ACL.
 
-> **Documentation status:** This repository reflects the lab status recorded on October 25, 2026. Items marked **planned**, **pending**, or **not yet verified** should not be treated as completed security controls.
 
 ## Project goals
 
