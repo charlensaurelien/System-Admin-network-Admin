@@ -1,0 +1,38 @@
+Guest VLAN ACL - Reference Only
+================================
+
+ACL name: Guest-in
+Intended interface: VLAN 50 SVI
+Intended direction: inbound
+
+The following ACL was recorded in the October 25, 2026 lab notes:
+
+ip access-list extended Guest-in
+ permit udp any eq bootpc any eq bootps
+ permit udp any host 192.168.10.10 eq domain
+ permit tcp any host 192.168.10.10 eq domain
+ deny ip any 192.168.10.0 0.0.0.255
+ deny ip any 192.168.20.0 0.0.0.255
+ deny ip any 192.168.30.0 0.0.0.255
+ deny ip any 192.168.2.0 0.0.0.255
+ permit ip any any
+!
+interface vlan 50
+ ip access-group Guest-in in
+
+STATUS:
+The source notes say the ACL was written during the session, but still needed
+confirmation that it was applied and tested. Treat it as pending validation.
+
+TEST PLAN FROM THE NOTES:
+- From a VLAN 50 client, run: nslookup lab.local
+- From a VLAN 50 client, test: ping 192.168.10.10
+- Check: show access-lists Guest-in
+- Confirm expected ACL hit counters.
+
+The notes also mention optionally adding a DHCP renewal permit:
+ permit udp any eq bootpc host 192.168.10.10 eq bootps
+
+Review ACL order and DHCP behavior carefully before changing or applying the ACL.
+The exact behavior can depend on how DHCP relay and client renewals traverse the
+switch. Do not treat this reference as a validated production policy.
